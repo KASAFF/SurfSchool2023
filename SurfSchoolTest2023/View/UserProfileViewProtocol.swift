@@ -10,4 +10,5 @@ import Foundation
 protocol UserProfileViewProtocol: AnyObject {
     func updateCollectionViewWithDeletion(at indexPath: IndexPath)
     func updateCollectionViewWithAdditing(at indexPath: IndexPath)
+    func configure(with user: User) 
 }

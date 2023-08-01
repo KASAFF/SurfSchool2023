@@ -8,7 +8,7 @@
 import UIKit
 
 final class AboutMeView: UIView {
-    lazy var aboutMeLabel: UILabel = {
+    lazy private var aboutMeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 1
@@ -22,7 +22,7 @@ final class AboutMeView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 14)
         label.numberOfLines = 0
-        label.text = "Experienced software engineer skilled in developing scalable and maintainable systems"
+//        label.text = "Experienced software engineer skilled in developing scalable and maintainable systems"
         return label
     }()
 
@@ -33,6 +33,10 @@ final class AboutMeView: UIView {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func configure(with user: User) {
+        bioTextLabel.text = user.description
     }
 
     private func setupUI() {

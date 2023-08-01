@@ -7,10 +7,10 @@
 
 import Foundation
 
-final class MockNetworkService {
+final class MockNetworkService: INetworkService {
 
-    func getUserData() -> User {
-        return User(name: "Иванов Иван Иванович", bio: "Middle iOS-разработчик", location: "Воронеж", skills: [
+    func getUserData(completion: @escaping (User) -> ()) {
+        let user = User(name: "Иванов Иван Иванович", bio: "Middle iOS-разработчик, опыт более 2-х лет", location: "Воронеж", skills: [
             "Swift",
             "iOS",
             "UIKit",
@@ -20,8 +20,9 @@ final class MockNetworkService {
             "Keychain",
             "Auto Layout",
             "Git",
-            "Debugging and testingDebugging and testingDebugging and testingDebugging and testing",
+            "Debugging and testing",
             "ARC"
         ], description: "Experienced software engineer skilled in developing scalable and maintainable systems")
+        completion(user)
     }
 }

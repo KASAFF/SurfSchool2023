@@ -21,7 +21,7 @@ final class UserProfileView: UIView {
     lazy private var avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "man")
+        imageView.image = .man
         imageView.clipsToBounds = true
         return imageView
     }()
@@ -29,7 +29,6 @@ final class UserProfileView: UIView {
     lazy private var userNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Иванов Иван Иванович"
         label.font = .boldSystemFont(ofSize: 24)
         label.textAlignment = .center
         label.numberOfLines = 5
@@ -39,7 +38,6 @@ final class UserProfileView: UIView {
     lazy private var userBioLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Middle iOS-разработчик, опыт более 2-х лет"
         label.font = .systemFont(ofSize: 14)
         label.textColor = .systemGray
         label.textAlignment = .center
@@ -47,7 +45,7 @@ final class UserProfileView: UIView {
         return label
     }()
 
-    lazy private var locationView: UIView = {
+    lazy private var locationView: LocationView = {
         let locationView = LocationView()
         locationView.translatesAutoresizingMaskIntoConstraints = false
         return locationView
@@ -67,6 +65,12 @@ final class UserProfileView: UIView {
         avatarImageView.layer.cornerRadius = avatarImageView.frame.width / 2
     }
 
+    func configure(with user: User) {
+        userNameLabel.text = user.name
+        userBioLabel.text = user.bio
+        locationView.locationLabel.text = user.location
+    }
+
     private func setupUI() {
         backgroundColor = .surfGray
 
@@ -82,7 +86,7 @@ final class UserProfileView: UIView {
         ])
 
         NSLayoutConstraint.activate([
-            avatarImageView.topAnchor.constraint(equalTo: moduleTitleLabel.bottomAnchor, constant: 42),
+            avatarImageView.topAnchor.constraint(equalTo: moduleTitleLabel.bottomAnchor, constant: 30),
             avatarImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             avatarImageView.heightAnchor.constraint(equalToConstant: 120),
             avatarImageView.widthAnchor.constraint(equalToConstant: 120)

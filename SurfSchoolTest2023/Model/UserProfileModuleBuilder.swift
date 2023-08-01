@@ -8,8 +8,17 @@
 import UIKit
 
 final class UserProfileModuleBuilder {
+
+    lazy private var networkService: INetworkService = {
+        return MockNetworkService()
+    }()
+
+    lazy private var persistanceService: IPersistanceManager = {
+        return PersistanceManager()
+    }()
+
     func build() -> UIViewController {
-        let presenter = UserProfilePresenter()
+        let presenter = UserProfilePresenter(networkService: networkService, persistanceService: persistanceService)
         let viewController = UserProfileViewController(presenter: presenter)
         presenter.view = viewController
         return viewController

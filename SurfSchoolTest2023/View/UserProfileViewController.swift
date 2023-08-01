@@ -40,7 +40,6 @@ final class UserProfileViewController: UIViewController, UserProfileViewProtocol
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 
     lazy private var backgroundGray: UIView = {
         let backgroundView = UIView()
@@ -103,6 +102,11 @@ final class UserProfileViewController: UIViewController, UserProfileViewProtocol
         setupUI()
     }
 
+    func configure(with user: User) {
+        userProfileView.configure(with: user)
+        aboutMeView.configure(with: user)
+    }
+
     @objc func editButtonTapped() {
         isEditingSkills.toggle()
     }
@@ -139,7 +143,7 @@ final class UserProfileViewController: UIViewController, UserProfileViewProtocol
             userProfileView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             userProfileView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             userProfileView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            userProfileView.bottomAnchor.constraint(equalTo: scrollView.centerYAnchor, constant: -60)
+            userProfileView.bottomAnchor.constraint(equalTo: scrollView.centerYAnchor, constant: -30)
         ])
 
         NSLayoutConstraint.activate([

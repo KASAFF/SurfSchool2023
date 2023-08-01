@@ -9,12 +9,12 @@ import UIKit
 
 final class LocationView: UIView {
 
-    lazy private var locationLabel: UILabel = {
+    lazy var locationLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 14)
         label.textColor = .gray
-        label.text = "Воронеж"
+      //  label.text = "Воронеж"
         return label
     }()
 
