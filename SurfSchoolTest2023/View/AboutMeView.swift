@@ -22,7 +22,7 @@ final class AboutMeView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 14)
         label.numberOfLines = 0
-//        label.text = "Experienced software engineer skilled in developing scalable and maintainable systems"
+
         return label
     }()
 

@@ -55,12 +55,23 @@ final class UserProfilePresenter: UserProfilePresenterProtocol {
         loggedUser?.skills.remove(at: index)
         let indexPath = IndexPath(item: index, section: 0)
         view?.updateCollectionViewWithDeletion(at: indexPath)
+        saveUser()
     }
     
     func addSkill(with name: String) {
         let indexPath = IndexPath(item: 0, section: 0)
         loggedUser?.skills.insert(name, at: 0)
         view?.updateCollectionViewWithAdditing(at: indexPath)
+        saveUser()
+    }
+
+    private func saveUser() {
+        guard let loggedUser else { return }
+        do {
+            try persistanceService.saveUser(user: loggedUser)
+        } catch {
+            print("Failed to save user")
+        }
     }
     
 }

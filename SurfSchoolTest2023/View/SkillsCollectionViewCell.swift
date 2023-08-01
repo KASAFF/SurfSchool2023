@@ -61,11 +61,6 @@ final class SkillsCollectionViewCell: UICollectionViewCell {
 
         stackView.spacing = 4
 
-//        NSLayoutConstraint.activate([
-//            deleteButton.heightAnchor.constraint(equalToConstant: 14),
-//            deleteButton.widthAnchor.constraint(equalToConstant: 14)
-//        ])
-
         deleteButton.setContentHuggingPriority(.required, for: .horizontal)
         deleteButton.setContentCompressionResistancePriority(.required, for: .horizontal)
 
