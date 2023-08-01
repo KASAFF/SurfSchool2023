@@ -85,6 +85,8 @@ final class UserProfileViewController: UIViewController {
 
     lazy var collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: SkillsCustomFlowLayout())
 
+    lazy var collectionViewHeightAnchor = collectionView.heightAnchor.constraint(greaterThanOrEqualToConstant: 200)
+
 
     // MARK: - ViewController Lifecycle
 
@@ -100,19 +102,27 @@ final class UserProfileViewController: UIViewController {
     }
 
     private func setupUI() {
-        view.addSubview(userProfileView)
-        view.addSubview(skillsStackView)
-        view.addSubview(aboutMeView)
-        view.addSubview(collectionView)
+        view.addSubview(scrollView)
+        scrollView.addSubview(userProfileView)
+        scrollView.addSubview(skillsStackView)
+        scrollView.addSubview(aboutMeView)
+        scrollView.addSubview(collectionView)
 
         skillsStackView.translatesAutoresizingMaskIntoConstraints = false
         skillsStackView.distribution = .equalCentering
 
         NSLayoutConstraint.activate([
-            userProfileView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
-            userProfileView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 45),
-            userProfileView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -45),
-            userProfileView.bottomAnchor.constraint(equalTo: view.centerYAnchor)
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+
+        NSLayoutConstraint.activate([
+            userProfileView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 24),
+            userProfileView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 45),
+            userProfileView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -45),
+            userProfileView.bottomAnchor.constraint(equalTo: scrollView.centerYAnchor)
         ])
 
         NSLayoutConstraint.activate([
@@ -126,19 +136,39 @@ final class UserProfileViewController: UIViewController {
             collectionView.topAnchor.constraint(equalTo: skillsStackView.topAnchor, constant: 50),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            collectionView.heightAnchor.constraint(equalToConstant: 200)
+            collectionViewHeightAnchor
         ])
 
         NSLayoutConstraint.activate([
             aboutMeView.topAnchor.constraint(equalTo: collectionView.bottomAnchor),
             aboutMeView.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor),
-            aboutMeView.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor)
+            aboutMeView.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor),
         ])
+
+
+            scrollView.alwaysBounceHorizontal = false
+            scrollView.alwaysBounceVertical = true
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let contentHeight = aboutMeView.frame.maxY + 64
+        scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: contentHeight)
+
+        let height = collectionView.collectionViewLayout.collectionViewContentSize.height
+        collectionViewHeightAnchor.constant = height
+
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
     }
 
     private func setupCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.isScrollEnabled = false
         collectionView.register(SkillsCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -164,6 +194,10 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout {
             let availableWidth = collectionView.bounds.width - collectionView.contentInset.left - collectionView.contentInset.right
             return calculateCellSize(with: skillText, maxWidth: availableWidth)
         }
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        view.layoutIfNeeded()
+    }
 }
 
 
