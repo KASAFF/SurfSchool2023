@@ -7,6 +7,10 @@
 
 import UIKit
 
+enum Section: Hashable {
+    case main
+}
+
 final class UserProfileViewController: UIViewController {
 
 
@@ -21,6 +25,36 @@ final class UserProfileViewController: UIViewController {
             collectionView.reloadData()
         }
     }
+
+    private lazy var dataSource: UICollectionViewDiffableDataSource<Section, String> = {
+            return UICollectionViewDiffableDataSource(collectionView: collectionView) { (collectionView, indexPath, skillText) -> UICollectionViewCell? in
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? SkillsCollectionViewCell else { return UICollectionViewCell() }
+
+                // Configure the cell
+                if indexPath.item == self.swiftDeveloperSkills.count {
+                    cell.configureCell(with: "+", isEditing: false)
+                } else {
+                    cell.configureCell(with: skillText, isEditing: self.isEditingSkills)
+                }
+
+                return cell
+            }
+        }()
+
+    private func updateDataSource() {
+           var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
+           snapshot.appendSections([.main])
+           snapshot.appendItems(swiftDeveloperSkills, toSection: .main)
+        if isEditingSkills {
+            snapshot.appendItems(["+"], toSection: .main) // Add the "Add" button
+        }
+           dataSource.apply(snapshot, animatingDifferences: true)
+       }
+
+    private func removeSkill(at index: Int) {
+            swiftDeveloperSkills.remove(at: index)
+            updateDataSource()
+        }
 
     var swiftDeveloperSkills = [
         "Swift",
@@ -43,13 +77,6 @@ final class UserProfileViewController: UIViewController {
             scroll.contentSize = CGSize(width: self.view.frame.size.width, height: 1000)
             return scroll
         }()
-
-//    lazy private var upperBackgroundView: UIView = {
-//        let view = UIView()
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        view.backgroundColor = .surfGray
-//        return view
-//    }()
 
     lazy private var userProfileView: UserProfileView = {
         let userProfileVIew = UserProfileView()
@@ -95,6 +122,8 @@ final class UserProfileViewController: UIViewController {
         view.backgroundColor = .systemBackground
         setupCollectionView()
         setupUI()
+
+        updateDataSource()
     }
 
     @objc func editButtonTapped() {
@@ -117,10 +146,6 @@ final class UserProfileViewController: UIViewController {
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-
-            let window = UIApplication.shared.windows.first
-            let topPadding = window?.safeAreaInsets.top ?? 0
-
 
         NSLayoutConstraint.activate([
 //            userProfileView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 24),
@@ -173,7 +198,10 @@ final class UserProfileViewController: UIViewController {
 
     private func setupCollectionView() {
         collectionView.delegate = self
-        collectionView.dataSource = self
+      //  collectionView.dataSource = self
+
+        collectionView.dataSource = dataSource
+
         collectionView.isScrollEnabled = false
         collectionView.register(SkillsCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -198,7 +226,7 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
         let skillText: String
-        if isEditingSkills && indexPath.row == swiftDeveloperSkills.count {
+        if isEditingSkills && indexPath.item > swiftDeveloperSkills.count - 1 {
             skillText = "+"
         } else {
             skillText = swiftDeveloperSkills[indexPath.item]
@@ -242,6 +270,7 @@ extension UserProfileViewController: UICollectionViewDataSource {
             print("Showing alert")
         } else {
             print("Deleting skill")
+            removeSkill(at: indexPath.item)
         }
     }
 }
