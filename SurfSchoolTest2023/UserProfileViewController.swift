@@ -22,7 +22,7 @@ final class UserProfileViewController: UIViewController {
         }
     }
 
-    let swiftDeveloperSkills = [
+    var swiftDeveloperSkills = [
         "Swift",
         "iOS",
         "UIKit",
@@ -44,12 +44,12 @@ final class UserProfileViewController: UIViewController {
             return scroll
         }()
 
-    lazy private var upperBackgroundView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .surfGray
-        return view
-    }()
+//    lazy private var upperBackgroundView: UIView = {
+//        let view = UIView()
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        view.backgroundColor = .surfGray
+//        return view
+//    }()
 
     lazy private var userProfileView: UserProfileView = {
         let userProfileVIew = UserProfileView()
@@ -118,10 +118,17 @@ final class UserProfileViewController: UIViewController {
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
 
+            let window = UIApplication.shared.windows.first
+            let topPadding = window?.safeAreaInsets.top ?? 0
+
+
         NSLayoutConstraint.activate([
-            userProfileView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 24),
-            userProfileView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 45),
-            userProfileView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -45),
+//            userProfileView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 24),
+//            userProfileView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 45),
+//            userProfileView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -45),
+            userProfileView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            userProfileView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            userProfileView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             userProfileView.bottomAnchor.constraint(equalTo: scrollView.centerYAnchor)
         ])
 
@@ -144,7 +151,6 @@ final class UserProfileViewController: UIViewController {
             aboutMeView.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor),
             aboutMeView.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor),
         ])
-
 
             scrollView.alwaysBounceHorizontal = false
             scrollView.alwaysBounceVertical = true
@@ -190,7 +196,13 @@ final class UserProfileViewController: UIViewController {
 
 extension UserProfileViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            let skillText = swiftDeveloperSkills[indexPath.item % swiftDeveloperSkills.count]
+
+        let skillText: String
+        if isEditingSkills && indexPath.row == swiftDeveloperSkills.count {
+            skillText = "+"
+        } else {
+            skillText = swiftDeveloperSkills[indexPath.item]
+        }
             let availableWidth = collectionView.bounds.width - collectionView.contentInset.left - collectionView.contentInset.right
             return calculateCellSize(with: skillText, maxWidth: availableWidth)
         }
@@ -204,13 +216,33 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout {
 
 extension UserProfileViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return swiftDeveloperSkills.count
+        if isEditingSkills {
+            return swiftDeveloperSkills.count + 1
+        } else {
+            return swiftDeveloperSkills.count
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? SkillsCollectionViewCell else { return UICollectionViewCell() }
+
+        if isEditingSkills && indexPath.item > swiftDeveloperSkills.count - 1 {
+            cell.configureCell(with: "+", isEditing: false)
+            return cell
+        }
+
         cell.configureCell(with: swiftDeveloperSkills[indexPath.row], isEditing: isEditingSkills)
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard isEditingSkills else { return }
+
+        if indexPath.item > swiftDeveloperSkills.count - 1 {
+            print("Showing alert")
+        } else {
+            print("Deleting skill")
+        }
     }
 }
 

@@ -9,6 +9,15 @@ import UIKit
 
 final class UserProfileView: UIView {
 
+    lazy private var moduleTitleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 1
+        label.text = "Профиль"
+        label.font = .boldSystemFont(ofSize: 16)
+        return label
+    }()
+
     lazy private var avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -60,13 +69,20 @@ final class UserProfileView: UIView {
 
     private func setupUI() {
         backgroundColor = .surfGray
+
+        addSubview(moduleTitleLabel)
         addSubview(avatarImageView)
         addSubview(userNameLabel)
         addSubview(userBioLabel)
         addSubview(locationView)
 
         NSLayoutConstraint.activate([
-            avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: 24),
+            moduleTitleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 18),
+            moduleTitleLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+        ])
+
+        NSLayoutConstraint.activate([
+            avatarImageView.topAnchor.constraint(equalTo: moduleTitleLabel.bottomAnchor, constant: 42),
             avatarImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             avatarImageView.heightAnchor.constraint(equalToConstant: 120),
             avatarImageView.widthAnchor.constraint(equalToConstant: 120)
