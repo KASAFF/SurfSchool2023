@@ -42,10 +42,12 @@ final class AboutMeView: UIView {
         NSLayoutConstraint.activate([
             aboutMeLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             aboutMeLabel.topAnchor.constraint(equalTo: topAnchor),
+            aboutMeLabel.heightAnchor.constraint(equalToConstant: 12),
 
             bioTextLabel.leadingAnchor.constraint(equalTo: aboutMeLabel.leadingAnchor),
             bioTextLabel.topAnchor.constraint(equalTo: aboutMeLabel.topAnchor, constant: 24),
-            bioTextLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
+            bioTextLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            bioTextLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
 }

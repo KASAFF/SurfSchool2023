@@ -17,10 +17,14 @@
 		AB84A9892A78FFE5003965C0 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB84A9882A78FFE5003965C0 /* UIColor+Extension.swift */; };
 		AB84A98B2A790484003965C0 /* SkillsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB84A98A2A790484003965C0 /* SkillsCollectionViewCell.swift */; };
 		AB84A98D2A7909E3003965C0 /* CustomFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB84A98C2A7909E3003965C0 /* CustomFlowLayout.swift */; };
-		AB84A98F2A79191A003965C0 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB84A98E2A79191A003965C0 /* Protocol.swift */; };
 		AB84A9912A79232D003965C0 /* AboutMeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB84A9902A79232D003965C0 /* AboutMeView.swift */; };
-		AB84A9932A794C3C003965C0 /* UIView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB84A9922A794C3C003965C0 /* UIView + Extension.swift */; };
-		AB84A9952A7952BD003965C0 /* Datasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB84A9942A7952BD003965C0 /* Datasource.swift */; };
+		AB84A99A2A798E35003965C0 /* UserProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB84A9992A798E35003965C0 /* UserProfilePresenter.swift */; };
+		AB84A99D2A798E57003965C0 /* UserProfilePresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB84A99C2A798E57003965C0 /* UserProfilePresenterProtocol.swift */; };
+		AB84A99F2A798F92003965C0 /* UserProfileViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB84A99E2A798F92003965C0 /* UserProfileViewProtocol.swift */; };
+		AB84A9A22A7991D1003965C0 /* UserProfileModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB84A9A12A7991D1003965C0 /* UserProfileModuleBuilder.swift */; };
+		AB84A9A42A799342003965C0 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB84A9A32A799342003965C0 /* UIImage+Extension.swift */; };
+		AB84A9A62A7999D1003965C0 /* MockNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB84A9A52A7999D1003965C0 /* MockNetworkService.swift */; };
+		AB84A9A82A7999DB003965C0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB84A9A72A7999DB003965C0 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,10 +40,14 @@
 		AB84A9882A78FFE5003965C0 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		AB84A98A2A790484003965C0 /* SkillsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillsCollectionViewCell.swift; sourceTree = "<group>"; };
 		AB84A98C2A7909E3003965C0 /* CustomFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFlowLayout.swift; sourceTree = "<group>"; };
-		AB84A98E2A79191A003965C0 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		AB84A9902A79232D003965C0 /* AboutMeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutMeView.swift; sourceTree = "<group>"; };
-		AB84A9922A794C3C003965C0 /* UIView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extension.swift"; sourceTree = "<group>"; };
-		AB84A9942A7952BD003965C0 /* Datasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Datasource.swift; sourceTree = "<group>"; };
+		AB84A9992A798E35003965C0 /* UserProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePresenter.swift; sourceTree = "<group>"; };
+		AB84A99C2A798E57003965C0 /* UserProfilePresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePresenterProtocol.swift; sourceTree = "<group>"; };
+		AB84A99E2A798F92003965C0 /* UserProfileViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewProtocol.swift; sourceTree = "<group>"; };
+		AB84A9A12A7991D1003965C0 /* UserProfileModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileModuleBuilder.swift; sourceTree = "<group>"; };
+		AB84A9A32A799342003965C0 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		AB84A9A52A7999D1003965C0 /* MockNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkService.swift; sourceTree = "<group>"; };
+		AB84A9A72A7999DB003965C0 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,8 +64,6 @@
 		AB84A9642A78EF24003965C0 = {
 			isa = PBXGroup;
 			children = (
-				AB84A9942A7952BD003965C0 /* Datasource.swift */,
-				AB84A9922A794C3C003965C0 /* UIView + Extension.swift */,
 				AB84A96F2A78EF24003965C0 /* SurfSchoolTest2023 */,
 				AB84A96E2A78EF24003965C0 /* Products */,
 			);
@@ -74,21 +80,67 @@
 		AB84A96F2A78EF24003965C0 /* SurfSchoolTest2023 */ = {
 			isa = PBXGroup;
 			children = (
-				AB84A9902A79232D003965C0 /* AboutMeView.swift */,
-				AB84A98E2A79191A003965C0 /* Protocol.swift */,
-				AB84A98C2A7909E3003965C0 /* CustomFlowLayout.swift */,
-				AB84A98A2A790484003965C0 /* SkillsCollectionViewCell.swift */,
-				AB84A9862A78FC89003965C0 /* LocationView.swift */,
-				AB84A9702A78EF24003965C0 /* AppDelegate.swift */,
-				AB84A9722A78EF24003965C0 /* SceneDelegate.swift */,
-				AB84A9742A78EF24003965C0 /* UserProfileViewController.swift */,
-				AB84A9842A78F929003965C0 /* UserProfileView.swift */,
-				AB84A9882A78FFE5003965C0 /* UIColor+Extension.swift */,
+				AB84A9A02A7991BC003965C0 /* Model */,
+				AB84A99B2A798E49003965C0 /* Presenter */,
+				AB84A9962A798DDE003965C0 /* View */,
+				AB84A9982A798E10003965C0 /* Service */,
+				AB84A9972A798DF4003965C0 /* Extensions */,
 				AB84A9792A78EF25003965C0 /* Assets.xcassets */,
 				AB84A97B2A78EF25003965C0 /* LaunchScreen.storyboard */,
 				AB84A97E2A78EF25003965C0 /* Info.plist */,
 			);
 			path = SurfSchoolTest2023;
+			sourceTree = "<group>";
+		};
+		AB84A9962A798DDE003965C0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AB84A9862A78FC89003965C0 /* LocationView.swift */,
+				AB84A9902A79232D003965C0 /* AboutMeView.swift */,
+				AB84A98A2A790484003965C0 /* SkillsCollectionViewCell.swift */,
+				AB84A9742A78EF24003965C0 /* UserProfileViewController.swift */,
+				AB84A99E2A798F92003965C0 /* UserProfileViewProtocol.swift */,
+				AB84A9842A78F929003965C0 /* UserProfileView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		AB84A9972A798DF4003965C0 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				AB84A9882A78FFE5003965C0 /* UIColor+Extension.swift */,
+				AB84A9A32A799342003965C0 /* UIImage+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		AB84A9982A798E10003965C0 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				AB84A9722A78EF24003965C0 /* SceneDelegate.swift */,
+				AB84A9702A78EF24003965C0 /* AppDelegate.swift */,
+			);
+			name = Service;
+			sourceTree = "<group>";
+		};
+		AB84A99B2A798E49003965C0 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				AB84A9992A798E35003965C0 /* UserProfilePresenter.swift */,
+				AB84A99C2A798E57003965C0 /* UserProfilePresenterProtocol.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		AB84A9A02A7991BC003965C0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AB84A9A12A7991D1003965C0 /* UserProfileModuleBuilder.swift */,
+				AB84A98C2A7909E3003965C0 /* CustomFlowLayout.swift */,
+				AB84A9A52A7999D1003965C0 /* MockNetworkService.swift */,
+				AB84A9A72A7999DB003965C0 /* User.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,12 +217,16 @@
 				AB84A9752A78EF24003965C0 /* UserProfileViewController.swift in Sources */,
 				AB84A98D2A7909E3003965C0 /* CustomFlowLayout.swift in Sources */,
 				AB84A9712A78EF24003965C0 /* AppDelegate.swift in Sources */,
-				AB84A9932A794C3C003965C0 /* UIView + Extension.swift in Sources */,
+				AB84A9A82A7999DB003965C0 /* User.swift in Sources */,
+				AB84A99D2A798E57003965C0 /* UserProfilePresenterProtocol.swift in Sources */,
+				AB84A9A22A7991D1003965C0 /* UserProfileModuleBuilder.swift in Sources */,
 				AB84A9872A78FC89003965C0 /* LocationView.swift in Sources */,
-				AB84A9952A7952BD003965C0 /* Datasource.swift in Sources */,
-				AB84A98F2A79191A003965C0 /* Protocol.swift in Sources */,
+				AB84A99F2A798F92003965C0 /* UserProfileViewProtocol.swift in Sources */,
+				AB84A99A2A798E35003965C0 /* UserProfilePresenter.swift in Sources */,
+				AB84A9A42A799342003965C0 /* UIImage+Extension.swift in Sources */,
 				AB84A9892A78FFE5003965C0 /* UIColor+Extension.swift in Sources */,
 				AB84A9732A78EF24003965C0 /* SceneDelegate.swift in Sources */,
+				AB84A9A62A7999D1003965C0 /* MockNetworkService.swift in Sources */,
 				AB84A9912A79232D003965C0 /* AboutMeView.swift in Sources */,
 				AB84A9852A78F929003965C0 /* UserProfileView.swift in Sources */,
 			);

@@ -15,17 +15,15 @@ final class SkillsCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textAlignment = .center
         label.numberOfLines = 1
-   //     label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 14)
         return label
     }()
 
-    lazy private var deleteButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "xmark")?.withRenderingMode(.alwaysOriginal).withTintColor(.black), for: .normal)
-        button.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
-//        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+    lazy private var deleteButton: UIImageView = {
+        let imageView = UIImageView(image: .xmark)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+
+        return imageView
     }()
 
     lazy private var stackView = UIStackView(arrangedSubviews: [
@@ -57,26 +55,26 @@ final class SkillsCollectionViewCell: UICollectionViewCell {
         stackView.removeArrangedSubview(deleteButton)
     }
 
-    @objc func deleteButtonTapped() {
-
-    }
-
     private func setupUI() {
             layer.cornerRadius = 12
             backgroundColor = .surfGray
 
         stackView.spacing = 4
 
+//        NSLayoutConstraint.activate([
+//            deleteButton.heightAnchor.constraint(equalToConstant: 14),
+//            deleteButton.widthAnchor.constraint(equalToConstant: 14)
+//        ])
 
+        deleteButton.setContentHuggingPriority(.required, for: .horizontal)
+        deleteButton.setContentCompressionResistancePriority(.required, for: .horizontal)
 
         addSubview(stackView)
-
-   //     stackView.distribution = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
 
         stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24).isActive = true
         stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24).isActive = true
-        stackView.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -0).isActive = true
+        stackView.topAnchor.constraint(equalTo: topAnchor, constant: 17).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -17).isActive = true
         }
 }

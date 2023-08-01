@@ -20,7 +20,7 @@ final class LocationView: UIView {
 
     lazy private var pinImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "pin")
+        imageView.image = .pin
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()

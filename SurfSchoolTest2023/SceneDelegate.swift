@@ -16,17 +16,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = scene as? UIWindowScene else { return }
         let window = UIWindow(windowScene: windowScene)
 
-        window.rootViewController = UserProfileViewController()
+        window.rootViewController = UserProfileModuleBuilder().build()
         self.window = window
         window.makeKeyAndVisible()
         guard let _ = (scene as? UIWindowScene) else { return }
-    }
-
-    private func createNavigationController() -> UINavigationController {
-        let userProfileVC = UserProfileViewController()
-        userProfileVC.title = "Профиль"
-        let navigationVC = UINavigationController(rootViewController: userProfileVC)
-        return navigationVC
     }
 }
 
