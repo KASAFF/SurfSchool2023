@@ -9,6 +9,19 @@ import UIKit
 
 final class UserProfileViewController: UIViewController {
 
+
+    private var isEditingSkills = false {
+        didSet {
+            switch isEditingSkills {
+            case true:
+                editButton.setImage(UIImage(named: "checkmark"), for: .normal)
+            case false:
+                editButton.setImage(UIImage(named: "editPen"), for: .normal)
+            }
+            collectionView.reloadData()
+        }
+    }
+
     let swiftDeveloperSkills = [
         "Swift",
         "iOS",
@@ -22,6 +35,14 @@ final class UserProfileViewController: UIViewController {
         "Debugging and testingDebugging and testingDebugging and testingDebugging and testing",
         "ARC"
     ]
+
+    lazy private var scrollView: UIScrollView = {
+            let scroll = UIScrollView()
+            scroll.translatesAutoresizingMaskIntoConstraints = false
+            scroll.delegate = self
+            scroll.contentSize = CGSize(width: self.view.frame.size.width, height: 1000)
+            return scroll
+        }()
 
     lazy private var upperBackgroundView: UIView = {
         let view = UIView()
@@ -45,8 +66,9 @@ final class UserProfileViewController: UIViewController {
     }()
 
     lazy private var editButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.setImage(UIImage(named: "editPen"), for: .normal)
+        button.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
         return button
     }()
 
@@ -71,6 +93,10 @@ final class UserProfileViewController: UIViewController {
         view.backgroundColor = .systemBackground
         setupCollectionView()
         setupUI()
+    }
+
+    @objc func editButtonTapped() {
+        isEditingSkills.toggle()
     }
 
     private func setupUI() {
@@ -115,20 +141,20 @@ final class UserProfileViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.register(SkillsCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-
-
     }
 
     private func calculateCellSize(with skillText: String, maxWidth: CGFloat) -> CGSize {
-           let labelWidth = skillText.size(withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)]).width + 32
-           let cellWidth = min(labelWidth, maxWidth)
+           let labelWidth = skillText.size(withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)]).width + 50
+           var cellWidth = min(labelWidth, maxWidth)
            let cellHeight = skillText.size(withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)]).height + 32
 
-        if cellWidth >= view.frame.width - 32 {
-            return CGSize(width: 100, height: cellHeight)
-        }
+        cellWidth = min(cellWidth, view.frame.width - (isEditingSkills ? 100 : 50))
 
-           return CGSize(width: cellWidth, height: cellHeight)
+        if isEditingSkills {
+            return CGSize(width: cellWidth + 50, height: cellHeight)
+        } else {
+            return CGSize(width: cellWidth, height: cellHeight)
+        }
        }
 }
 
@@ -149,7 +175,7 @@ extension UserProfileViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? SkillsCollectionViewCell else { return UICollectionViewCell() }
-        cell.configureCell(with: swiftDeveloperSkills[indexPath.row])
+        cell.configureCell(with: swiftDeveloperSkills[indexPath.row], isEditing: isEditingSkills)
         return cell
     }
 }
