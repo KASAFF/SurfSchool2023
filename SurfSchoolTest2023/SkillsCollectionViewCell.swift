@@ -11,12 +11,16 @@ final class SkillsCollectionViewCell: UICollectionViewCell {
 
     lazy var skillLabel: UILabel = {
         let label = UILabel()
+        label.textAlignment = .center
+        label.numberOfLines = 1
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 14)
         return label
     }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setupUI()
     }
 
     required init?(coder: NSCoder) {
@@ -26,4 +30,15 @@ final class SkillsCollectionViewCell: UICollectionViewCell {
     func configureCell(with skillText: String) {
         skillLabel.text = skillText
     }
+
+    private func setupUI() {
+            layer.cornerRadius = 12
+            backgroundColor = .surfGray
+            addSubview(skillLabel)
+
+            skillLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
+            skillLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -0).isActive = true
+            skillLabel.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
+            skillLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -0).isActive = true
+        }
 }

@@ -8,29 +8,28 @@
 import UIKit
 
 class SkillsCustomFlowLayout: UICollectionViewFlowLayout {
+    let cellSpacing: CGFloat = 8
+
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        let layoutAttributes = super.layoutAttributesForElements(in: rect)
-        layoutAttributes?.forEach { attributes in
-            if attributes.representedElementCategory == .cell {
-                updateCellAttributes(attributes)
+        self.minimumLineSpacing = 8.0
+        self.sectionInset = UIEdgeInsets(top: 12.0, left: 0, bottom: 0.0, right: 0)
+        let attributes = super.layoutAttributesForElements(in: rect)
+
+        var leftMargin = sectionInset.left
+        var maxY: CGFloat = -1.0
+        var updatedAttributes: [UICollectionViewLayoutAttributes] = []
+
+        attributes?.forEach { layoutAttribute in
+            if layoutAttribute.frame.origin.y >= maxY {
+                leftMargin = sectionInset.left
             }
+            guard let updatedAttribute = layoutAttribute.copy() as? UICollectionViewLayoutAttributes else { return }
+            updatedAttribute.frame.origin.x = leftMargin
+            updatedAttributes.append(updatedAttribute)
+            leftMargin += updatedAttribute.frame.width + cellSpacing
+            maxY = max(updatedAttribute.frame.maxY, maxY)
         }
-        return layoutAttributes
-    }
-
-    private func updateCellAttributes(_ attributes: UICollectionViewLayoutAttributes) {
-        guard let collectionView = collectionView else { return }
-        let inset = collectionView.contentInset.left + collectionView.contentInset.right
-        let availableWidth = collectionView.bounds.width - inset - sectionInset.left - sectionInset.right
-
-        let indexPath = attributes.indexPath
-        if let cell = collectionView.cellForItem(at: indexPath) as? SkillsCollectionViewCell {
-            let labelWidth = cell.skillLabel.intrinsicContentSize.width
-            let labelHeight = cell.skillLabel.intrinsicContentSize.height
-            let cellWidth = min(availableWidth, labelWidth + 16) // Add some padding
-            attributes.frame.size = CGSize(width: cellWidth, height: labelHeight + 16) // Add some vertical padding
-        }
+        return updatedAttributes
     }
 }
-
 
