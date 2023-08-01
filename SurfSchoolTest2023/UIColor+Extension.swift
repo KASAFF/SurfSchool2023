@@ -5,4 +5,8 @@
 //  Created by Aleksey Kosov on 01.08.2023.
 //
 
-import Foundation
+import UIKit
+
+extension UIColor {
+    static var surfGray: UIColor { return UIColor(named: "surfGray") ?? UIColor.systemGray }
+}
